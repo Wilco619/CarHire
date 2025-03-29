@@ -1,0 +1,247 @@
+/* Hero Section */
+#hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+#hero-video {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: auto;
+    min-height: auto;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+    color: white;
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Paragraph Sections */
+.paragraph, .sec-paragraph {
+    display: flex;
+    align-items: center;
+    padding: 5rem 10%;
+    gap: 4rem;
+    background: #f9f9f9;
+}
+
+.sec-paragraph {
+    background: white;
+    flex-direction: row-reverse;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.text-content h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.text-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.text-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.text-content ul li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.text-content ul li:before {
+    content: "•";
+    color: #00baf0;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+}
+
+.paragraph-img, .sec-img {
+    max-width: 45%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.paragraph-img:hover, .sec-img:hover {
+    transform: scale(1.05);
+}
+
+/* Featured Categories */
+.car-container {
+    padding: 5rem 10%;
+}
+
+.car-container h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.car-category {
+    margin-bottom: 4rem;
+}
+
+.car-category h3 {
+    font-size: 2rem;
+    color: #444;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.car-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.car {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.car:hover {
+    transform: translateY(-5px);
+}
+
+.car img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.car h4 {
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.car p {
+    padding: 0 1rem 1rem;
+    margin: 0;
+    color: #00baf0;
+    font-weight: bold;
+}
+
+/* Featured Cars */
+.featured-cars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.car-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+}
+
+.car-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.car-info {
+    padding: 1.5rem;
+}
+
+.car-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.car-make {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.car-category {
+    color: #007bff;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.car-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.car-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+}
+
+.availability .available {
+    color: #28a745;
+}
+
+.availability .unavailable {
+    color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .paragraph, .sec-paragraph {
+        flex-direction: column;
+        padding: 3rem 5%;
+    }
+
+    .paragraph-img, .sec-img {
+        max-width: 100%;
+        order: -1;
+    }
+
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .car-list {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-cars {
+        grid-template-columns: 1fr;
+    }
+}

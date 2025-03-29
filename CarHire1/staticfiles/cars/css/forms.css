@@ -1,0 +1,55 @@
+.form-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.car-form .form-group {
+    margin-bottom: 20px;
+}
+
+.car-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.car-form input,
+.car-form select,
+.car-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.car-form .field-errors {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.car-form .btn {
+    margin-right: 10px;
+}
+
+.edit-car-form .current-image {
+    margin: 10px 0;
+    max-width: 200px;
+}
+
+.edit-car-form .image-preview {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.edit-car-form .delete-image {
+    color: #dc3545;
+    text-decoration: none;
+    margin-left: 10px;
+}

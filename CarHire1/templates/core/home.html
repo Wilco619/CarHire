@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Urban Ark - Find Your Perfect Ride{% endblock %}
+
+{% block content %}
+    <section id="hero">
+        <video autoplay muted loop id="hero-video">
+            <source src="{% static 'videos/hero.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h2>Find Your Perfect Ride</h2>
+            <form id="booking-form">
+                <button type="submit">Search Cars</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="paragraph">
+        <div class="text-content">
+            <h2>Welcome to Urban Ark Car Rental!</h2>
+            <p>At Urban Ark, we offer the best car rental services to fulfill all your travel needs. Whether you're planning a weekend getaway, a business trip, or a special occasion, we have the perfect car for you.</p>
+            <ul>
+                <li><strong>Wide Range of Options:</strong> From compact cars to spacious SUVs, we have a diverse fleet of well-maintained vehicles.</li>
+                <li><strong>Affordable Rates:</strong> Our rental rates are competitive and designed to fit every budget.</li>
+                <li><strong>Convenient Pickup and Drop-off:</strong> Hassle-free pickup and drop-off services.</li>
+            </ul>
+        </div>
+        <img src="{% static 'img/range-rover.png' %}" alt="Range Rover" class="paragraph-img">
+    </div>
+
+    <div class="sec-paragraph">
+        <img src="{% static 'img/porche.jpg' %}" alt="Porsche" class="sec-img">
+        <div class="text-content">
+            <h2>Our Commitment</h2>
+            <p>We strive to provide the best car rental experience with top-notch services and reliable vehicles.</p>
+            <h2>Core Values</h2>
+            <ul>
+                <li><strong>Excellence:</strong> We uphold the highest standards in service delivery.</li>
+                <li><strong>Reliability:</strong> Dependable transport solutions.</li>
+                <li><strong>Customer-Centricity:</strong> Prioritizing customer satisfaction in every journey.</li>
+            </ul>
+        </div>
+    </div>
+
+    {% if error_message %}
+        <div class="alert alert-warning">
+            {{ error_message }}
+        </div>
+    {% endif %}
+
+    <div class="featured-cars">
+        {% for car in featured_cars %}
+            <div class="car-card">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.name }}">
+                {% endif %}
+                <div class="car-info">
+                    <h3>{{ car.make }} {{ car.model }}</h3>
+                    <p class="availability">
+                        Available Units: {{ car.available_units }}
+                    </p>
+                    <p class="price">Ksh{{ car.daily_rate }}/day</p>
+                    <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No cars available at the moment.</p>
+        {% endfor %}
+    </div>
+
+    <div class="car-container">
+        <h2>Featured Cars</h2>
+        <div class="featured-cars">
+            {% if featured_cars %}
+                {% for car in featured_cars %}
+                <div class="car-card">
+                    {% if car.image %}
+                        <img src="{{ car.image.url }}" alt="{{ car.name }}">
+                    {% endif %}
+                    <div class="car-info">
+                        <h3>{{ car.name }}</h3>
+                        <p class="car-make">{{ car.make }} {{ car.model }}</p>
+                        <p class="car-category">{{ car.category.name }}</p>
+                        <div class="car-stats">
+                            <span><i class="fas fa-car"></i> {{ car.available_units }} available</span>
+                            <span><i class="fas fa-money-bill"></i> Ksh{{ car.daily_rate }}/day</span>
+                        </div>
+                        <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No featured cars available at the moment.</p>
+            {% endif %}
+        </div>
+
+        <h2>Browse by Category</h2>
+        {% for category in categories %}
+        <div class="car-category">
+            <h3>{{ category.name }}</h3>
+            <div class="car-list">
+                {% with category_cars=category.car_set.all|slice:":3" %}
+                {% for car in category_cars %}
+                <div class="car">
+                    {% if car.image %}
+                        <img src="{{ car.image.url }}" alt="{{ car.name }}">
+                    {% endif %}
+                    <h4>{{ car.name }}</h4>
+                    <p class="availability">
+                        {% if car.available_units > 0 %}
+                            <span class="available">{{ car.available_units }} Available</span>
+                        {% else %}
+                            <span class="unavailable">Fully Booked</span>
+                        {% endif %}
+                    </p>
+                    <p class="price">Ksh{{ car.daily_rate }}/day</p>
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

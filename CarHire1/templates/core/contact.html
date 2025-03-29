@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contact-hero">
+    <h2>Ready to Experience Seamless Travel?</h2>
+    <p>Let UrbanArk handle your transport needs with professionalism and reliability.</p>
+</section>
+
+<div class="contact-container">
+    <section class="contact-info">
+        <h2>Contact Information</h2>
+        <div class="contact-details">
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <p><strong>Phone:</strong> <a href="tel:+254712004650">07120004650</a> - Isaac</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p><strong>Address:</strong> Be Energy, Ngong Road, Dagoretti, Nairobi</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <p><strong>Email:</strong> <a href="mailto:urbanarkcarrental@gmail.com">urbanarkcarrental@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-form">
+        <h2>Send Us a Message</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Your Email">
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required placeholder="Subject">
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+</div>
+
+<section class="map-section">
+    <div class="map-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.854376764569!2d36.77521451475391!3d-1.268385835976538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f173c0a1f9c7d%3A0x1b7b1b1b1b1b1b1b!2sBe%20Energy%2C%20Ngong%20Road%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1633083083083!5m2!1sen!2ske"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </div>
+</section>
+
+<a href="https://wa.me/254712004650" class="whatsapp-chatbot" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0ASubject: ${subject}%0AMessage: ${message}`;
+    window.open(`https://wa.me/254712004650?text=${whatsappMessage}`, '_blank');
+});
+</script>
+{% endblock %}

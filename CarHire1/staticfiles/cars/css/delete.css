@@ -1,0 +1,51 @@
+.delete-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.car-info {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.car-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.car-details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.car-details dt {
+    font-weight: bold;
+    color: #666;
+}
+
+.delete-form {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}

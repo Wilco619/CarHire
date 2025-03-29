@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book {{ car.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/booking.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="booking-container">
+    <div class="car-summary">
+        <h2>Booking Details</h2>
+        <div class="car-info">
+            {% if car.image %}
+                <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-thumbnail">
+            {% endif %}
+            <div class="car-details">
+                <h3>{{ car.make }} {{ car.model }}</h3>
+                <p><strong>Daily Rate:</strong> Ksh{{ car.daily_rate }}</p>
+                <p><strong>Category:</strong> {{ car.category.name }}</p>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" class="booking-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required min="{{ today|date:'Y-m-d' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required min="{{ today|date:'Y-m-d' }}">
+        </div>
+
+        <div class="cost-estimate">
+            <p>Estimated Total: <span id="total-cost">Ksh0.00</span></p>
+        </div>
+
+        <button type="submit" class="submit-button">Confirm Booking</button>
+    </form>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const startDate = document.getElementById('start_date');
+    const endDate = document.getElementById('end_date');
+    const dailyRate = {{ car.daily_rate }};
+    
+    function updateTotalCost() {
+        if (startDate.value && endDate.value) {
+            const start = new Date(startDate.value);
+            const end = new Date(endDate.value);
+            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            if (days > 0) {
+                const total = days * dailyRate;
+                document.getElementById('total-cost').textContent = `Ksh${total.toFixed(2)}`;
+            }
+        }
+    }
+    
+    startDate.addEventListener('change', updateTotalCost);
+    endDate.addEventListener('change', updateTotalCost);
+});
+</script>
+{% endblock %}
+{% endblock %}

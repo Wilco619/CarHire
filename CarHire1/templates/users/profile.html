@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-picture-wrapper">
+            <div class="profile-picture">
+                {% if user.profile.profile_picture %}
+                    <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.get_full_name|default:user.username }}'s Profile Picture">
+                {% else %}
+                    <i class="fas fa-user-circle default-profile-icon"></i>
+                {% endif %}
+                <div class="upload-overlay">
+                    <label for="profile-picture-upload" class="upload-btn">
+                        <i class="fas fa-camera"></i>
+                        <input type="file" id="profile-picture-upload" name="profile_picture" accept="image/*" class="hidden-input">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="username-container">
+            <h2 class="username">{{ user.get_full_name|default:user.username }}</h2>
+            <p class="user-email">{{ user.email }}</p>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <form method="post" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+
+            <div class="form-section">
+                <h3>Personal Information</h3>
+                <div class="form-grid">
+                    {% for field in user_form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="field-errors">
+                            {% for error in field.errors %}
+                            <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Profile Details</h3>
+                <div class="form-grid">
+                    {% for field in profile_form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="field-errors">
+                            {% for error in field.errors %}
+                            <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

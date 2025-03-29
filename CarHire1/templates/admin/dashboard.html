@@ -1,0 +1,38 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block admin_content %}
+<div class="dashboard">
+    <h1>Admin Dashboard</h1>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-calendar-check"></i>
+            <div class="stat-content">
+                <h3>Total Bookings</h3>
+                <p>{{ total_bookings }}</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-clock"></i>
+            <div class="stat-content">
+                <h3>Pending Bookings</h3>
+                <p>{{ pending_bookings }}</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-car"></i>
+            <div class="stat-content">
+                <h3>Total Cars</h3>
+                <p>{{ total_cars }}</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <div class="stat-content">
+                <h3>Total Users</h3>
+                <p>{{ total_users }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

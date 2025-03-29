@@ -1,0 +1,138 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/car_form.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+<div class="car-form-container">
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <div class="form-card">
+        <form method="POST" enctype="multipart/form-data" class="car-form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Car Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <div class="error-message">{{ form.name.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.make.id_for_label }}">Make</label>
+                    {{ form.make }}
+                    {% if form.make.errors %}
+                    <div class="error-message">{{ form.make.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.model.id_for_label }}">Model</label>
+                    {{ form.model }}
+                    {% if form.model.errors %}
+                    <div class="error-message">{{ form.model.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.year.id_for_label }}">Year</label>
+                    {{ form.year }}
+                    {% if form.year.errors %}
+                    <div class="error-message">{{ form.year.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                    <div class="error-message">{{ form.category.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.daily_rate.id_for_label }}">Daily Rate</label>
+                    {{ form.daily_rate }}
+                    {% if form.daily_rate.errors %}
+                    <div class="error-message">{{ form.daily_rate.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.transmission.id_for_label }}">Transmission</label>
+                    {{ form.transmission }}
+                    {% if form.transmission.errors %}
+                    <div class="error-message">{{ form.transmission.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.fuel_type.id_for_label }}">Fuel Type</label>
+                    {{ form.fuel_type }}
+                    {% if form.fuel_type.errors %}
+                    <div class="error-message">{{ form.fuel_type.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.seats.id_for_label }}">Number of Seats</label>
+                    {{ form.seats }}
+                    {% if form.seats.errors %}
+                    <div class="error-message">{{ form.seats.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.quantity.id_for_label }}">Number of Units</label>
+                    {{ form.quantity }}
+                    {% if form.quantity.errors %}
+                    <div class="error-message">{{ form.quantity.errors|striptags }}</div>
+                    {% endif %}
+                    <small class="help-text">Total number of units available for this car model</small>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                <div class="error-message">{{ form.description.errors|striptags }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group image-upload">
+                <label for="{{ form.image.id_for_label }}">Car Image</label>
+                {% if car and car.image %}
+                    <div class="current-image">
+                        <img src="{{ car.image.url }}" alt="Current car image">
+                        <p>Current image</p>
+                    </div>
+                {% endif %}
+                {{ form.image }}
+                {% if form.image.errors %}
+                <div class="error-message">{{ form.image.errors|striptags }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{{ submit_text }}</button>
+                <a href="{% url 'admin_cars' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking Confirmation - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/booking_confirmation.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="confirmation-container">
+    <div class="confirmation-card">
+        <div class="confirmation-header">
+            <i class="fas fa-check-circle"></i>
+            <h1>Booking Confirmed!</h1>
+            <p>Your booking has been successfully processed.</p>
+        </div>
+
+        <div class="booking-details">
+            <h2>Booking Details</h2>
+            <div class="detail-row">
+                <span class="label">Booking Reference:</span>
+                <span class="value">#{{ booking.id }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Booking Date:</span>
+                <span class="value">{{ booking.booking_date|date:"F d, Y H:i" }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Status:</span>
+                <span class="value status-badge {{ booking.status }}">{{ booking.status|title }}</span>
+            </div>
+        </div>
+
+        <div class="car-details">
+            <h2>Car Information</h2>
+            <div class="car-info">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-image">
+                {% endif %}
+                <div class="car-specs">
+                    <h3>{{ car.name }} - {{ car.model }}</h3>
+                    <p>{{ car.make }} ({{ car.year }})</p>
+                    <p>Category: {{ car.category.name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="rental-details">
+            <h2>Rental Period</h2>
+            <div class="detail-row">
+                <span class="label">Start Date:</span>
+                <span class="value">{{ booking.start_date|date:"F d, Y" }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">End Date:</span>
+                <span class="value">{{ booking.end_date|date:"F d, Y" }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Duration:</span>
+                <span class="value">{{ duration }} days</span>
+            </div>
+        </div>
+
+        <div class="cost-summary">
+            <h2>Cost Summary</h2>
+            <div class="detail-row total">
+                <span class="label">Total Cost:</span>
+                <span class="value">Ksh{{ booking.total_cost }}</span>
+            </div>
+        </div>
+
+        <div class="confirmation-actions">
+            <a href="{% url 'user_bookings' %}" class="btn btn-primary">View My Bookings</a>
+            <a href="{% url 'car_list' %}" class="btn btn-secondary">Browse More Cars</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

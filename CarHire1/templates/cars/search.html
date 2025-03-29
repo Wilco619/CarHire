@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search Cars - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <div class="search-header">
+        <h1>Find Your Perfect Car</h1>
+    </div>
+
+    <form method="get" class="search-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price_range">Price Range</label>
+                <select name="price_range" id="price_range">
+                    <option value="">Any Price</option>
+                    <option value="0-5000">Under Ksh5000/day</option>
+                    <option value="5000-10000">Ksh50 - Ksh10,000/day</option>
+                    <option value="10000-20000">Ksh100 - Ksh20,000/day</option>
+                    <option value="20000+">Ksh20000+ /day</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="transmission">Transmission</label>
+                <select name="transmission" id="transmission">
+                    <option value="">Any</option>
+                    <option value="automatic">Automatic</option>
+                    <option value="manual">Manual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seats">Seats</label>
+                <select name="seats" id="seats">
+                    <option value="">Any</option>
+                    <option value="2">2 Seats</option>
+                    <option value="4">4 Seats</option>
+                    <option value="5">5 Seats</option>
+                    <option value="7">7+ Seats</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="search-button">Search Cars</button>
+    </form>
+
+    <div class="search-results">
+        {% if cars %}
+        <div class="results-grid">
+            {% for car in cars %}
+            <div class="car-card">
+                {% if car.image %}
+                <img src="{{ car.image.url }}" alt="{{ car.make }} {{ car.model }}">
+                {% endif %}
+                <div class="car-info">
+                    <h3>{{ car.make }} {{ car.model }}</h3>
+                    <p class="category">{{ car.category.name }}</p>
+                    <p class="price">Ksh{{ car.daily_rate }}/day</p>
+                    <div class="car-features">
+                        <span><i class="fas fa-cog"></i> {{ car.transmission }}</span>
+                        <span><i class="fas fa-user"></i> {{ car.seats }} seats</span>
+                    </div>
+                    <a href="{% url 'car_detail' car.id %}" class="view-details">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <p>No cars found matching your criteria.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

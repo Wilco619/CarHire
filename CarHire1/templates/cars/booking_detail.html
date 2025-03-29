@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking Details - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/booking_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="booking-detail-container">
+    <div class="booking-card">
+        <div class="booking-header">
+            <h1>Booking Details</h1>
+            <span class="status-badge {{ booking.status }}">{{ booking.status|title }}</span>
+        </div>
+
+        <div class="booking-section">
+            <h2>Booking Information</h2>
+            <div class="detail-row">
+                <span class="label">Booking Reference:</span>
+                <span class="value">#{{ booking.id }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Booking Date:</span>
+                <span class="value">{{ booking.booking_date|date:"F d, Y H:i" }}</span>
+            </div>
+        </div>
+
+        <div class="booking-section">
+            <h2>Car Details</h2>
+            <div class="car-info">
+                {% if booking.car.image %}
+                    <img src="{{ booking.car.image.url }}" alt="{{ booking.car.name }}" class="car-image">
+                {% endif %}
+                <div class="car-details">
+                    <h3>{{ booking.car.name }} - {{ booking.car.model }}</h3>
+                    <p>Make: {{ booking.car.make }}</p>
+                    <p>Year: {{ booking.car.year }}</p>
+                    <p>Category: {{ booking.car.category.name }}</p>
+                    <p>Transmission: {{ booking.car.transmission|title }}</p>
+                    <p>Fuel Type: {{ booking.car.fuel_type|title }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-section">
+            <h2>Rental Period</h2>
+            <div class="detail-row">
+                <span class="label">Pick-up Date:</span>
+                <span class="value">{{ booking.start_date|date:"F d, Y H:i" }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Return Date:</span>
+                <span class="value">{{ booking.end_date|date:"F d, Y H:i" }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Duration:</span>
+                <span class="value">{{ duration }} days</span>
+            </div>
+        </div>
+
+        <div class="booking-section">
+            <h2>Payment Details</h2>
+            <div class="detail-row">
+                <span class="label">Daily Rate:</span>
+                <span class="value">Ksh{{ booking.car.daily_rate }}</span>
+            </div>
+            <div class="detail-row total">
+                <span class="label">Total Amount:</span>
+                <span class="value">Ksh{{ booking.total_cost }}</span>
+            </div>
+        </div>
+
+        <div class="booking-actions">
+            {% if booking.status == 'pending' or booking.status == 'confirmed' %}
+                <button class="btn btn-danger" onclick="cancelBooking({{ booking.id }})">
+                    Cancel Booking
+                </button>
+            {% endif %}
+            <a href="{% url 'user_bookings' %}" class="btn btn-secondary">Back to Bookings</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function cancelBooking(bookingId) {
+    if (confirm('Are you sure you want to cancel this booking?')) {
+        window.location.href = `/cars/booking/${bookingId}/cancel/`;
+    }
+}
+</script>
+{% endblock %}

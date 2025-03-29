@@ -1,0 +1,21 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Booking Confirmation{% endblock %}
+
+{% block content %}
+<h2>Dear {{ booking.user.get_full_name }},</h2>
+<p>Your car rental booking has been confirmed.</p>
+
+<div class="booking-details">
+    <h3>Booking Details</h3>
+    <p><strong>Booking ID:</strong> #{{ booking.id }}</p>
+    <p><strong>Car:</strong> {{ booking.car.name }} ({{ booking.car.make }} {{ booking.car.model }})</p>
+    <p><strong>Pick-up Date:</strong> {{ booking.start_date|date:"F d, Y" }}</p>
+    <p><strong>Return Date:</strong> {{ booking.end_date|date:"F d, Y" }}</p>
+    <p><strong>Total Cost:</strong> Ksh{{ booking.total_cost }}</p>
+</div>
+
+<p>Please ensure to return the car by {{ booking.end_date|date:"F d, Y" }} to avoid any late fees.</p>
+
+<a href="{{ site_url }}{% url 'booking_detail' booking.id %}" class="button">View Booking Details</a>
+{% endblock %}

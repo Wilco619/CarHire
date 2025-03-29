@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about">
+    <div class="main">
+        <img src="{% static 'img/logo ark.jpg' %}" alt="Urban Ark Logo">
+        <div class="about-text">
+            <h1>
+                <span>A</span>
+                <span>B</span>
+                <span>O</span>
+                <span>U</span>
+                <span>T</span>
+                <span> </span>
+                <span>U</span>
+                <span>S</span>
+            </h1>
+            <h5>Your Premium Car Rental Service</h5>
+            <p>Founded in 2014, Urban Ark began as a car rental service driven by a simple belief: travel is more than just getting from one place to another—it's about the experiences, connections, and memories made along the way.</p>
+            
+            <p>Over the years, we have grown into a trusted name in the travel and transport industry, offering car rentals, travel and tour services, corporate transport solutions, and event transport services. Our commitment to professionalism, reliability, and customer satisfaction ensures that every journey with us is seamless and stress-free.</p>
+            
+            <p>At Urban Ark, we don't just provide transport—we create unforgettable travel experiences. Whether you're exploring a new destination, attending a corporate event, or simply need a ride, we are here to get you there effortlessly.</p>
+            
+            <p>Let's make your journey memorable. Welcome to Urban Ark.</p>
+            
+            <a href="{% url 'contact' %}" class="talk-button">Let's Talk</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

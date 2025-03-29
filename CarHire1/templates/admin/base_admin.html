@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard - Urban Ark Car Rental{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/bookings.css' %}">
+<link rel="stylesheet" href="{% static 'css/booking_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/car_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin_user.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin_category.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+        <nav class="admin-nav">
+            <a href="{% url 'admin_dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{% url 'admin_bookings' %}" class="nav-item {% if request.resolver_match.url_name == 'admin_bookings' %}active{% endif %}">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Bookings</span>
+            </a>
+            <a href="{% url 'admin_cars' %}" class="nav-item {% if request.resolver_match.url_name == 'admin_cars' %}active{% endif %}">
+                <i class="fas fa-car"></i>
+                <span>Cars</span>
+            </a>
+            <a href="{% url 'admin_users' %}" class="nav-item {% if request.resolver_match.url_name == 'admin_users' %}active{% endif %}">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="{% url 'admin_categories' %}" class="nav-item {% if request.resolver_match.url_name == 'admin_categories' %}active{% endif %}">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+            </a>
+        </nav>
+    </aside>
+    <main class="admin-main">
+        {% block admin_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}

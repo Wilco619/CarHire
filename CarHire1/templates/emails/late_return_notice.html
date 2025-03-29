@@ -1,0 +1,22 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Late Return Notice{% endblock %}
+
+{% block content %}
+<h2>Dear {{ booking.user.get_full_name }},</h2>
+
+<div class="warning">
+    <p>This is a notification regarding your overdue car rental (Booking #{{ booking.id }}).</p>
+</div>
+
+<div class="booking-details">
+    <h3>Late Return Details</h3>
+    <p><strong>Due Date:</strong> {{ booking.end_date|date:"F d, Y" }}</p>
+    <p><strong>Days Late:</strong> {{ days_late }}</p>
+    <p><strong>Current Late Fees:</strong> Ksh{{ booking.late_fees }}</p>
+</div>
+
+<p>Please return the vehicle as soon as possible to avoid additional charges.</p>
+
+<a href="{{ site_url }}{% url 'booking_detail' booking.id %}" class="button">View Booking Details</a>
+{% endblock %}
