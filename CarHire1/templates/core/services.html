@@ -3,9 +3,110 @@
 
 {% block title %}Our Services - Urban Ark Car Rental{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
 {% block content %}
-<div class="services-page">
-    <h1>Our Services</h1>
-    <p>Discover our range of car rental services.</p>
-</div>
+<section class="services-hero">
+    <div class="container">
+        <h1>Our Services</h1>
+        <p class="lead">Comprehensive transport solutions tailored to your needs</p>
+    </div>
+</section>
+
+<div class="container">
+    <section class="services-intro">
+        <p>At Urban Ark, we pride ourselves on providing high-quality car rental services with exceptional customer care. 
+        Discover our range of offerings designed to make your transportation experience seamless and enjoyable.</p>
+    </section>
+
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="service-content">
+                <h2>Car Rentals</h2>
+                <p>We offer a wide range of vehicles for rent, from economy to luxury cars. Our fleet is regularly maintained 
+                to ensure safety and comfort during your journey.</p>
+                <a href="#" class="service-link">Explore our fleet <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="service-content">
+                <h2>Booking Management</h2>
+                <p>Manage your bookings easily through our online platform. Make reservations, modify existing bookings, 
+                or extend your rental period with just a few clicks.</p>
+                <a href="#" class="service-link">Book now <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <div class="service-content">
+                <h2>24/7 Customer Support</h2>
+                <p>Our support team is available around the clock to assist you with any queries or concerns. 
+                We're committed to providing prompt and effective solutions to enhance your experience.</p>
+                <a href="#" class="service-link">Contact support <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="service-content">
+                <h2>Insurance Options</h2>
+                <p>Choose from various insurance options to protect your rental. Our comprehensive coverage plans 
+                provide peace of mind throughout your journey.</p>
+                <a href="#" class="service-link">View insurance plans <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-route"></i>
+            </div>
+            <div class="service-content">
+                <h2>Long-Distance Travel</h2>
+                <p>Planning a road trip? Our vehicles are perfect for long-distance travel with unlimited mileage options 
+                and roadside assistance available throughout Kenya.</p>
+                <a href="#" class="service-link">Plan your trip <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="service-content">
+                <h2>Corporate Services</h2>
+                <p>We offer specialized corporate packages for businesses with regular transportation needs. 
+                Enjoy priority service, corporate rates, and dedicated account management.</p>
+                <a href="#" class="service-link">Corporate solutions <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Experience Our Services?</h2>
+            <p>Contact us today to discuss your transport needs or make a reservation.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="btn btn-primary">Contact Us</a>
+                <a href="/bookings" class="btn btn-secondary">Make a Reservation</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -5,34 +5,110 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-<section class="about">
-    <div class="main">
-        <img src="{% static 'img/logo ark.jpg' %}" alt="Urban Ark Logo">
-        <div class="about-text">
-            <h1>
-                <span>A</span>
-                <span>B</span>
-                <span>O</span>
-                <span>U</span>
-                <span>T</span>
-                <span> </span>
-                <span>U</span>
-                <span>S</span>
-            </h1>
-            <h5>Your Premium Car Rental Service</h5>
-            <p>Founded in 2014, Urban Ark began as a car rental service driven by a simple belief: travel is more than just getting from one place to another—it's about the experiences, connections, and memories made along the way.</p>
-            
-            <p>Over the years, we have grown into a trusted name in the travel and transport industry, offering car rentals, travel and tour services, corporate transport solutions, and event transport services. Our commitment to professionalism, reliability, and customer satisfaction ensures that every journey with us is seamless and stress-free.</p>
-            
-            <p>At Urban Ark, we don't just provide transport—we create unforgettable travel experiences. Whether you're exploring a new destination, attending a corporate event, or simply need a ride, we are here to get you there effortlessly.</p>
-            
-            <p>Let's make your journey memorable. Welcome to Urban Ark.</p>
-            
-            <a href="{% url 'contact' %}" class="talk-button">Let's Talk</a>
-        </div>
+<section class="about-hero">
+    <div class="container">
+        <h1>About Us</h1>
+        <p class="lead">Your trusted partner in premium transportation since 2014</p>
     </div>
 </section>
+
+<div class="container">
+    <section class="about-intro">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="{% static 'img/logo ark.jpg' %}" alt="Urban Ark Logo">
+                <div class="experience-badge">
+                    <span class="years">10+</span>
+                    <span class="text">Years of Excellence</span>
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <h2>Your Premium Car Rental Service</h2>
+                
+                <p class="intro-text">Founded in 2014, Urban Ark began as a car rental service driven by a simple belief: travel is more than just getting from one place to another—it's about the experiences, connections, and memories made along the way.</p>
+                
+                <p>Over the years, we have grown into a trusted name in the travel and transport industry, offering a comprehensive range of mobility solutions tailored to your needs.</p>
+                
+                <div class="values">
+                    <div class="value-item">
+                        <i class="fas fa-star"></i>
+                        <h3>Quality</h3>
+                        <p>Well-maintained vehicles that ensure comfort and safety.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Reliability</h3>
+                        <p>Consistent service you can count on, every time.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <i class="fas fa-heart"></i>
+                        <h3>Customer-First</h3>
+                        <p>Your satisfaction is our highest priority.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about-services">
+        <h2>Our Comprehensive Services</h2>
+        
+        <div class="services-list">
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3>Car Rentals</h3>
+                <p>From economy to luxury vehicles for every occasion.</p>
+            </div>
+            
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3>Travel & Tours</h3>
+                <p>Explore Kenya's beautiful destinations with our guided tours.</p>
+            </div>
+            
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Corporate Transport</h3>
+                <p>Reliable solutions for businesses of all sizes.</p>
+            </div>
+            
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-glass-cheers"></i>
+                </div>
+                <h3>Event Transport</h3>
+                <p>Special occasions deserve special transportation.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about-mission">
+        <div class="mission-content">
+            <h2>Our Mission</h2>
+            <p>At Urban Ark, we don't just provide transport—we create unforgettable travel experiences. Whether you're exploring a new destination, attending a corporate event, or simply need a ride, we are here to get you there effortlessly.</p>
+            
+            <blockquote>
+                "Let's make your journey memorable. Welcome to Urban Ark."
+            </blockquote>
+            
+            <a href="{% url 'contact' %}" class="cta-button">
+                <span>Let's Talk</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+</div>
 {% endblock %}

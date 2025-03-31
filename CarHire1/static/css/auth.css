@@ -1,20 +1,45 @@
 .auth-container {
-    max-width: 400px;
-    margin: 60px auto;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 2rem;
 }
 
 .auth-box {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
 }
 
 .auth-box h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #333;
+}
+
+.auth-form {
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .auth-form .form-group {
@@ -43,18 +68,18 @@
 }
 
 .submit-btn {
-    background: #00baf0;
+    width: 100%;
+    padding: 0.75rem;
+    background: #007bff;
     color: white;
-    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
+    font-weight: 500;
 }
 
 .submit-btn:hover {
-    background: #0099cc;
+    background: #0056b3;
 }
 
 .forgot-password {
@@ -64,10 +89,8 @@
 }
 
 .auth-links {
+    margin-top: 1.5rem;
     text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
 }
 
 .auth-links a {
@@ -77,6 +100,40 @@
 
 .field-errors {
     color: #dc3545;
-    font-size: 14px;
-    margin-top: 5px;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.success-message,
+.error-message {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.success-message i,
+.error-message i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.success-message i {
+    color: #28a745;
+}
+
+.error-message i {
+    color: #dc3545;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.btn:hover {
+    background: #0056b3;
 }

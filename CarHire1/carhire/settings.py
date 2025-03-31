@@ -154,12 +154,13 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider's SMTP server
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'your-email@gmail.com'
 EMAIL_HOST_PASSWORD = 'your-app-specific-password'
+DEFAULT_FROM_EMAIL = 'Urban Ark Car Rental <your-email@gmail.com>'
 
 # Contact email where form submissions will be sent
 CONTACT_EMAIL = 'support@yourcompany.com'
