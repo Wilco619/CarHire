@@ -201,8 +201,8 @@
   
   .featured-cars {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr); /* Show 3 cars by default */
+    gap: 1.5rem;
     margin: 2rem 0 4rem;
   }
   
@@ -368,49 +368,171 @@
     
     .paragraph-img, .sec-img {
       max-width: 100%;
-      height: auto;
+      height: 300px;
     }
     
-    .text-content h2:after {
-      left: 50%;
-      transform: translateX(-50%);
+    .featured-cars {
+      grid-template-columns: repeat(3, 1fr); /* Keep 3 columns */
+      gap: 1rem;
     }
     
-    .text-content ul {
-      display: inline-block;
-      text-align: left;
+    .car-info h3 {
+      font-size: 1.2rem;
+    }
+    
+    .car-make, .car-category {
+      font-size: 0.85rem;
+    }
+    
+    .car-stats {
+      font-size: 0.8rem;
     }
   }
   
   @media (max-width: 768px) {
     .hero-content h2 {
-      font-size: 2.8rem;
+      font-size: 2.2rem;
     }
     
-    .featured-cars, .car-list {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    .featured-cars {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    }
+    
+    .text-content h2 {
+      font-size: 1.8rem;
+    }
+    
+    .text-content p {
+      font-size: 0.95rem;
+    }
+    
+    .text-content li {
+      font-size: 0.9rem;
+    }
+    
+    .car-info h3 {
+      font-size: 1.1rem;
+    }
+
+    .car-info a{
+      font-size: 0.6rem;
+    }
+    
+    .availability, .price {
+      font-size: 0.9rem;
+    }
+    
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      min-width: 120px; /* Add minimum width */
+    }
+
+    .hero-content a {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
     }
   }
   
   @media (max-width: 480px) {
     .hero-content h2 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
     }
     
     .hero-content a {
-      padding: 0.8rem 1.8rem;
-      font-size: 1rem;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
     }
     
     .featured-cars {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr); /* Keep 2 columns on mobile */
+      gap: 0.8rem;
     }
     
-    .car-list {
-      grid-template-columns: 1fr;
+    .car-card {
+      font-size: 0.9rem;
+    }
+    
+    .car-info {
+      padding: 1rem;
+    }
+    
+    .car-info h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .car-make, .car-category {
+      font-size: 0.75rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .car-stats {
+      font-size: 0.75rem;
+      margin: 0.5rem 0;
+    }
+    
+    .availability, .price {
+      font-size: 0.85rem;
+      margin: 0.3rem 0;
+    }
+    
+    .btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      min-width: 100px;
     }
     
     .text-content h2 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+    }
+    
+    .text-content p {
+      font-size: 0.85rem;
+    }
+    
+    .text-content li {
+      font-size: 0.8rem;
+      padding-left: 1.5rem;
+    }
+    
+    .car-category h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      width: auto; /* Override full width */
+      margin: 0.5rem auto;
+      display: block;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .featured-cars {
+      grid-template-columns: 1fr; /* Single column for very small screens */
+    }
+    
+    .car-info h3 {
+      font-size: 0.95rem;
+    }
+    
+    .car-make, .car-category {
+      font-size: 0.7rem;
+    }
+    
+    .car-stats {
+      font-size: 0.7rem;
+    }
+    
+    .btn {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.7rem;
+      min-width: 80px;
+    }
+
+    .hero-content a {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
     }
   }

@@ -1,3 +1,4 @@
+from datetime import datetime
 import logging
 from django.core.exceptions import FieldError
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,6 +12,7 @@ from .models import Car, Booking, CarCategory
 from .forms import CarForm
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from .forms import CarCategoryForm
 from .utils import send_booking_confirmation_email, send_late_return_notification
 
@@ -365,7 +367,7 @@ def search_cars_view(request):
     })
 
 def is_admin(user):
-    return user.is_authenticated and (user.is_staff or user.is_superuser)
+    return user.is_authenticated and user.is_staff
 
 @user_passes_test(is_admin)
 def admin_dashboard_view(request):
@@ -379,17 +381,19 @@ def admin_dashboard_view(request):
 
 @user_passes_test(is_admin)
 def admin_bookings_view(request):
-    status_filter = request.GET.get('status', '')
-    date_filter = request.GET.get('date', '')
+    bookings_list = Booking.objects.all().order_by('-booking_date')
     
-    bookings = Booking.objects.all().order_by('-start_date')
+    # Handle filters
+    status_filter = request.GET.get('status')
+    date_filter = request.GET.get('date')
     
     if status_filter:
-        bookings = bookings.filter(status=status_filter)
+        bookings_list = bookings_list.filter(status=status_filter)
     if date_filter:
-        bookings = bookings.filter(start_date__date=date_filter)
-        
-    paginator = Paginator(bookings, 10)
+        bookings_list = bookings_list.filter(start_date=date_filter)
+    
+    # Pagination
+    paginator = Paginator(bookings_list, 10)
     page = request.GET.get('page')
     bookings = paginator.get_page(page)
     
@@ -453,38 +457,49 @@ def admin_users_view(request):
 
 @user_passes_test(is_admin)
 def admin_booking_detail_view(request, booking_id):
-    """Admin view for booking details"""
-    booking = get_object_or_404(Booking, pk=booking_id)
+    booking = get_object_or_404(Booking, id=booking_id)
     return render(request, 'admin/booking_detail.html', {'booking': booking})
 
 @user_passes_test(is_admin)
 def admin_booking_edit_view(request, booking_id):
-    """Admin view for editing bookings"""
-    booking = get_object_or_404(Booking, pk=booking_id)
+    booking = get_object_or_404(Booking, id=booking_id)
     
     if request.method == 'POST':
-        # Update booking status
+        # Get form data
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
         new_status = request.POST.get('status')
-        if new_status in ['pending', 'confirmed', 'completed', 'cancelled']:
-            booking.status = new_status
-            booking.save()
-            messages.success(request, f'Booking #{booking.id} updated successfully.')
-            return redirect('admin_booking_detail', booking_id=booking.id)
+        
+        # Convert dates to datetime objects
+        start_datetime = datetime.strptime(f"{start_date} 00:00:00", '%Y-%m-%d %H:%M:%S')
+        end_datetime = datetime.strptime(f"{end_date} 23:59:59", '%Y-%m-%d %H:%M:%S')
+        
+        # Update booking
+        booking.start_date = timezone.make_aware(start_datetime)
+        booking.end_date = timezone.make_aware(end_datetime)
+        booking.status = new_status
+        
+        # Recalculate total cost if dates changed
+        days = (end_datetime - start_datetime).days + 1
+        booking.total_cost = booking.car.daily_rate * days
+        
+        # Save changes
+        booking.save()
+        
+        messages.success(request, f'Booking #{booking.id} updated successfully.')
+        return redirect('admin_booking_detail', booking_id=booking.id)
     
     return render(request, 'admin/booking_edit.html', {'booking': booking})
 
-@user_passes_test(is_admin)
+@user_passes_test(lambda u: u.is_staff)
 def admin_booking_confirm_view(request, booking_id):
-    """Admin view for confirming bookings"""
-    booking = get_object_or_404(Booking, pk=booking_id)
-    
+    booking = get_object_or_404(Booking, id=booking_id)
     if booking.status == 'pending':
         booking.status = 'confirmed'
         booking.save()
         messages.success(request, f'Booking #{booking.id} has been confirmed.')
     else:
-        messages.error(request, 'This booking cannot be confirmed.')
-    
+        messages.error(request, 'Booking could not be confirmed.')
     return redirect('admin_bookings')
 
 @user_passes_test(is_admin)

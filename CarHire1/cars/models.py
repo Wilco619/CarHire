@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -86,6 +87,10 @@ class Car(models.Model):
         self.save()
         self.update_availability()
 
+    def get_rate(self, rental_type):
+        """Get the appropriate rate based on rental type"""
+        return self.hourly_rate if rental_type == 'hourly' else self.daily_rate
+
 class Booking(models.Model):
     """Model for car bookings"""
     STATUS_CHOICES = [
@@ -98,7 +103,11 @@ class Booking(models.Model):
         ('cancelled', 'Cancelled')
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE,
+        related_name='bookings'  # Add this line
+    )
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()

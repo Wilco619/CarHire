@@ -31,56 +31,67 @@
         </div>
     </div>
 
-    <div class="profile-content">
-        <form method="post" enctype="multipart/form-data" class="profile-form">
-            {% csrf_token %}
-
-            <div class="form-section">
-                <h3>Personal Information</h3>
-                <div class="form-grid">
-                    {% for field in user_form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {% if field.errors %}
-                        <div class="field-errors">
-                            {% for error in field.errors %}
-                            <span class="error">{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
+    <div class="profile-section">
+        <h2>Personal Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Name:</label>
+                <span>{{ user.get_full_name }}</span>
             </div>
-
-            <div class="form-section">
-                <h3>Profile Details</h3>
-                <div class="form-grid">
-                    {% for field in profile_form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {% if field.errors %}
-                        <div class="field-errors">
-                            {% for error in field.errors %}
-                            <span class="error">{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
+            <div class="info-item">
+                <label>Email:</label>
+                <span>{{ user.email }}</span>
             </div>
-
-            <div class="form-actions">
-                <button type="submit" class="save-btn">
-                    <i class="fas fa-save"></i> Save Changes
-                </button>
+            <div class="info-item">
+                <label>Phone:</label>
+                <span>{{ user.phone_number }}</span>
             </div>
-        </form>
-    <div class="form-actions">
-        <a href="{% url 'password_reset' %}" class="password-reset-link">Set Password</a>
+            <div class="info-item">
+                <label>Date of Birth:</label>
+                <span>{{ user.date_of_birth|date:"M d, Y" }}</span>
+            </div>
+            <div class="info-item">
+                <label>Address:</label>
+                <span>{{ user.street_address }}<br>
+                      {{ user.city }}, {{ user.postal_code }}<br>
+                      {{ user.country }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>Driver Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <label>License Number:</label>
+                <span>{{ user.license_number }}</span>
+            </div>
+            <div class="info-item">
+                <label>License Country:</label>
+                <span>{{ user.license_country }}</span>
+            </div>
+            <div class="info-item">
+                <label>License Expiry:</label>
+                <span>{{ user.license_expiry|date:"M d, Y" }}</span>
+            </div>
+            {% if user.license_image %}
+            <div class="info-item full-width">
+                <label>License Image:</label>
+                <img src="{{ user.license_image.url }}" alt="Driver's License" class="license-image">
+            </div>
+            {% endif %}
+            {% if user.has_international_permit %}
+            <div class="info-item">
+                <label>International Permit:</label>
+                <span>{{ user.international_permit_number }}<br>
+                      Expires: {{ user.international_permit_expiry|date:"M d, Y" }}</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
     </div>
 </div>
 {% endblock %}

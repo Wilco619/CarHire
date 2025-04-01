@@ -1,0 +1,285 @@
+/* Urban Ark Car Rental - Registration Page CSS */
+
+/* Base Styles and Variables */
+:root {
+    --primary-color: #3a5998;
+    --primary-dark: #2f477a;
+    --secondary-color: #f8f9fa;
+    --accent-color: #ff9800;
+    --success-color: #4caf50;
+    --error-color: #f44336;
+    --text-color: #333333;
+    --text-light: #6c757d;
+    --border-color: #dee2e6;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-radius: 8px;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-color);
+    background-color: #f5f7fa;
+    line-height: 1.6;
+  }
+  
+  /* Registration Container */
+  .register-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .register-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: var(--primary-color);
+  }
+  
+  .register-container h2 {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 25px 30px;
+    margin: 0;
+    font-size: 28px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Form Sections */
+  .form-section {
+    padding: 30px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .form-section h3 {
+    color: var(--primary-color);
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .form-section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+  }
+  
+  /* Form Groups */
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 15px;
+  }
+  
+  /* Form Controls */
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="password"],
+  .form-group input[type="tel"],
+  .form-group input[type="date"],
+  .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    transition: var(--transition);
+    background-color: #f8f9fa;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(58, 89, 152, 0.15);
+    outline: none;
+    background-color: #fff;
+  }
+  
+  /* File Upload Styling */
+  .form-group input[type="file"] {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .form-group input[type="file"]:hover {
+    background-color: #e9ecef;
+    border-color: var(--primary-color);
+  }
+  
+  /* Checkbox Styling */
+  .form-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+  }
+  
+  .checkbox-label {
+    font-weight: normal;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+  
+  /* Error Handling */
+  .form-group .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    color: var(--error-color);
+    font-size: 14px;
+  }
+  
+  .form-group input.error,
+  .form-group select.error {
+    border-color: var(--error-color);
+  }
+  
+  /* Form Actions */
+  .form-actions {
+    padding: 30px;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  
+  .btn-secondary:hover {
+    background-color: rgba(58, 89, 152, 0.1);
+  }
+  
+  /* International Permit Section */
+  #international-permit-fields {
+    padding: 15px;
+    background-color: rgba(58, 89, 152, 0.05);
+    border-radius: var(--border-radius);
+    margin-top: 15px;
+    border-left: 3px solid var(--primary-color);
+  }
+  
+  /* Responsive Adjustments */
+  @media screen and (max-width: 768px) {
+    .register-container {
+      margin: 20px;
+    }
+    
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .form-section, .form-actions {
+      padding: 20px;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .btn {
+      width: 100%;
+    }
+  }
+  
+  /* Animation Effects */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .form-section {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .form-section:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  /* Focus Highlights for Accessibility */
+  input:focus-visible, 
+  select:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+  }
+  
+  /* Placeholder Styling */
+  ::placeholder {
+    color: #adb5bd;
+    opacity: 1;
+  }
+  
+  /* Date Input Styling */
+  input[type="date"] {
+    appearance: none;
+  }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--primary-color);
+  }

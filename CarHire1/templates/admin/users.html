@@ -52,18 +52,17 @@
                         </span>
                     </td>
                     <td class="actions">
-                        <button class="btn-icon" onclick="viewUser({{ user.id }})">
+                        <a href="{% url 'admin_user_detail' user.id %}" class="btn-icon">
                             <i class="fas fa-eye" title="View Details"></i>
-                        </button>
-                        <button class="btn-icon" onclick="editUser({{ user.id }})">
+                        </a>
+                        <a href="{% url 'admin_user_edit' user.id %}" class="btn-icon">
                             <i class="fas fa-edit" title="Edit"></i>
-                        </button>
+                        </a>
                         {% if not user.is_superuser %}
-                        <button class="btn-icon {{ user.is_active|yesno:'deactivate,activate' }}"
-                            onclick="toggleUserStatus({{ user.id }})">
-                            <i class="fas fa-{{ user.is_active|yesno:'ban,check' }}"
-                                title="{{ user.is_active|yesno:'Deactivate,Activate' }}"></i>
-                        </button>
+                        <a href="{% url 'admin_user_toggle_status' user.id %}" class="btn-icon {{ user.is_active|yesno:'deactivate,activate' }}">
+                            <i class="fas fa-{{ user.is_active|yesno:'ban,check' }}" 
+                               title="{{ user.is_active|yesno:'Deactivate,Activate' }}"></i>
+                        </a>
                         {% endif %}
                     </td>
                 </tr>

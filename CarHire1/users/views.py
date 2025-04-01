@@ -1,15 +1,21 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user_model, get_backends
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse
+from django.db.models import Sum
+
+from cars.models import Booking
 
 from .models import CustomUser
+
 from .forms import (
     CustomUserCreationForm, 
     UserUpdateForm, 
     UserProfileForm
 )
+
+User = get_user_model()
 
 def is_customer(user):
     """
@@ -21,39 +27,33 @@ def is_admin(user):
     """
     Check if the user is an admin
     """
-    return user.is_authenticated and (user.user_type == 'admin' or user.is_superuser)
+    return user.is_authenticated and (user.user_type == 'admin' or user.is_superuser or user.is_staff)
 
 def register_view(request):
-    """
-    User registration view with role assignment
-    """
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            # Explicitly set user type to customer during registration
-            user = form.save(commit=False)
-            user.user_type = 'customer'
-            user.save()
-            
-            # Authenticate and login the user
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            
-            if user:
-                login(request, user)
-                messages.success(request, f'Account created for {username}!')
-                return redirect('home')
+            user = form.save()
+            # Get the first backend from AUTHENTICATION_BACKENDS
+            backend = get_backends()[0]
+            # Log the user in with the specified backend
+            login(request, user, backend=backend.__class__.__name__)
+            messages.success(request, 'Account created successfully!')
+            return redirect('profile')
     else:
         form = CustomUserCreationForm()
     
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'users/register.html', {
+        'form': form,
+        'title': 'Register'
+    })
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('username')  # Form field is named username but accepts email
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        
+        user = authenticate(request, username=email, password=password)
         
         if user is not None:
             login(request, user)
@@ -76,16 +76,40 @@ def logout_view(request):
     return redirect('home')
 
 @login_required
-@user_passes_test(is_customer)
 def customer_dashboard(request):
-    """
-    Customer-specific dashboard
-    """
-    # Fetch user's bookings, etc.
-    bookings = request.user.bookings.all()  # Assuming you have a related name 'bookings'
-    return render(request, 'users/customer_dashboard.html', {
-        'bookings': bookings
-    })
+    """Display customer dashboard with booking information"""
+    # Get active bookings
+    active_bookings = Booking.objects.filter(
+        user=request.user,
+        status__in=['pending', 'confirmed', 'active']
+    )
+    
+    # Get past bookings
+    past_bookings = Booking.objects.filter(
+        user=request.user,
+        status__in=['completed', 'cancelled']
+    )
+    
+    # Get recent bookings (last 5)
+    recent_bookings = Booking.objects.filter(
+        user=request.user
+    ).order_by('-booking_date')[:5]
+    
+    # Calculate unpaid penalties
+    unpaid_penalties = Booking.objects.filter(
+        user=request.user,
+        is_late=True,
+        penalty_paid=False
+    ).aggregate(total=Sum('late_fees'))['total'] or 0
+    
+    context = {
+        'active_bookings': active_bookings,
+        'past_bookings': past_bookings,
+        'recent_bookings': recent_bookings,
+        'unpaid_penalties': unpaid_penalties,
+    }
+    
+    return render(request, 'users/customer_dashboard.html', context)
 
 @login_required
 def profile_view(request):
@@ -113,3 +137,62 @@ def profile_view(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+            return redirect('profile')
+    else:
+        form = UserUpdateForm(instance=request.user)
+    
+    return render(request, 'users/edit_profile.html', {
+        'form': form,
+        'title': 'Edit Profile'
+    })
+
+@user_passes_test(is_admin)
+def admin_user_detail(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    # Get bookings if they exist, otherwise return empty queryset
+    bookings = user.bookings.all().order_by('-booking_date') if hasattr(user, 'bookings') else []
+    
+    return render(request, 'admin/user_detail.html', {
+        'user_detail': user,
+        'bookings': bookings
+    })
+
+@user_passes_test(is_admin)
+def admin_user_edit(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        # Handle form submission
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        
+        if request.POST.get('is_staff'):
+            user.is_staff = True
+        else:
+            user.is_staff = False
+            
+        user.save()
+        messages.success(request, f'User {user.get_full_name()} updated successfully.')
+        return redirect('admin_user_detail', user_id=user.id)
+        
+    return render(request, 'admin/user_edit.html', {'user_detail': user})
+
+@user_passes_test(is_admin)
+def admin_user_toggle_status(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if not user.is_superuser:
+        user.is_active = not user.is_active
+        user.save()
+        status = 'activated' if user.is_active else 'deactivated'
+        messages.success(request, f'User {user.get_full_name()} has been {status}.')
+    return redirect('admin_users')
+
+

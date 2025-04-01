@@ -142,16 +142,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = [
-    'users.custom_auth_backend.CustomAuthBackend',  # Your custom backend
-    'django.contrib.auth.backends.ModelBackend',  # Default Django backend
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
-
-# Login and redirect settings
-ADMIN_LOGIN_URL = '/admin/login/'
+# Authentication settings
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# Login and redirect settings
+ADMIN_LOGIN_URL = '/admin/login/'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

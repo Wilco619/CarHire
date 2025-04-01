@@ -288,47 +288,159 @@ body {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+    .header {
+        padding: 10px 20px;
+    }
+
     .menu-btn {
         display: block;
+        z-index: 1000;
     }
 
     .navbar {
-        padding: 0 1rem;
+        position: fixed;
+        top: 80px; /* Height of header */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px); /* Viewport height minus header height */
+        background: rgba(0, 0, 0, 0.95);
+        padding: 20px;
+        overflow-y: auto; /* Enable vertical scrolling */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .navbar.active {
+        transform: translateX(0);
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 20px 0;
+        min-height: min-content; /* Ensure content can be smaller than viewport */
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    /* Add smooth scrolling to the whole page */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Fix header position */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #000000;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Add padding to body to account for fixed header */
+    body {
+        padding-top: 80px;
+    }
+
+    /* Ensure dropdown content is scrollable on mobile */
+    .dropdown-content {
+        position: static;
+        max-height: none;
+        overflow: visible;
     }
 
     .nav-links {
         display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        margin: 10px 0;
+        font-size: 18px;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropbtn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .dropdown-content {
+        position: static;
+        background: transparent;
+        box-shadow: none;
+        width: 100%;
+        display: none;
+    }
+
+    .dropdown:hover .dropdown-content,
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .dropdown-content a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #00baf0;
     }
 
     .nav-right {
-        margin-left: auto;
-    }
-
-    .navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: black;
-        padding: 20px;
         flex-direction: column;
+        width: 100%;
         align-items: center;
-        gap: 20px;
-        transform: translateY(-150%);
-        transition: transform 0.3s ease;
-        opacity: 0;
-        visibility: hidden;
+        margin-top: 20px;
     }
 
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .login-btn, 
+    .register-btn {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    /* Ensure dropdowns are visible on mobile */
     .navbar.active {
-        transform: translateY(0);
+        display: flex;
+        flex-direction: column;
         opacity: 1;
         visibility: visible;
+        transform: translateY(0);
     }
 
-    .navbar a {
-        margin: 10px 0;
-        font-size: 20px;
+    .navbar.active .nav-links,
+    .navbar.active .nav-right {
+        display: flex;
     }
 
     .footer-content {
@@ -360,6 +472,18 @@ body {
 }
 
 @media screen and (max-width: 480px) {
+    .header {
+        padding: 10px;
+    }
+
+    .logo-container img {
+        height: 40px;
+    }
+
+    .navbar {
+        top: 60px;
+    }
+
     .site-footer {
         padding: 40px 0 20px;
     }

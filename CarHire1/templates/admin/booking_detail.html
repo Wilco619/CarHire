@@ -1,0 +1,35 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block admin_content %}
+<div class="booking-detail">
+    <h2>Booking Details #{{ booking.id }}</h2>
+    
+    <div class="booking-info">
+        <div class="section">
+            <h3>Customer Information</h3>
+            <p><strong>Email:</strong> {{ booking.user.email }}</p>
+            <p><strong>Name:</strong> {{ booking.user.get_full_name }}</p>
+        </div>
+        
+        <div class="section">
+            <h3>Car Information</h3>
+            <p><strong>Car:</strong> {{ booking.car.make }} {{ booking.car.model }}</p>
+            <p><strong>Daily Rate:</strong> Ksh{{ booking.car.daily_rate }}</p>
+        </div>
+        
+        <div class="section">
+            <h3>Booking Details</h3>
+            <p><strong>Start Date:</strong> {{ booking.start_date|date:"M d, Y" }}</p>
+            <p><strong>End Date:</strong> {{ booking.end_date|date:"M d, Y" }}</p>
+            <p><strong>Total Cost:</strong> Ksh{{ booking.total_cost }}</p>
+            <p><strong>Status:</strong> <span class="status-badge {{ booking.status }}">{{ booking.status|title }}</span></p>
+        </div>
+    </div>
+    
+    <div class="actions">
+        <a href="{% url 'admin_booking_edit' booking.id %}" class="btn btn-primary">Edit Booking</a>
+        <a href="{% url 'admin_bookings' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock %}

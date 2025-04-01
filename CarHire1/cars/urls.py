@@ -48,12 +48,14 @@ urlpatterns = [
     path('admin/bookings/', views.admin_bookings_view, name='admin_bookings'),
     path('admin/cars/', views.admin_cars_view, name='admin_cars'),
     path('admin/users/', views.admin_users_view, name='admin_users'),
-    path('admin/booking/<int:booking_id>/', views.admin_booking_detail_view, name='admin_booking_detail'),
-    path('admin/booking/<int:booking_id>/edit/', views.admin_booking_edit_view, name='admin_booking_edit'),
-    path('admin/booking/<int:booking_id>/confirm/', views.admin_booking_confirm_view, name='admin_booking_confirm'),
     path('admin/booking/<int:booking_id>/return/', 
          views.handle_car_return_view, 
          name='handle_car_return'),
+    
+    # Admin booking management
+    path('admin/bookings/<int:booking_id>/', views.admin_booking_detail_view, name='admin_booking_detail'),
+    path('admin/bookings/<int:booking_id>/edit/', views.admin_booking_edit_view, name='admin_booking_edit'),
+    path('admin/bookings/<int:booking_id>/confirm/', views.admin_booking_confirm_view, name='admin_booking_confirm'),
     
     # Add these new URL patterns
     path('admin/categories/', views.admin_categories_view, name='admin_categories'),

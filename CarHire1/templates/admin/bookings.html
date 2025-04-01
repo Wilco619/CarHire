@@ -1,4 +1,5 @@
 {% extends 'admin/base_admin.html' %}
+{% load static %}
 
 {% block admin_content %}
 <div class="admin-bookings">
@@ -42,16 +43,16 @@
                     <td>Ksh{{ booking.total_cost }}</td>
                     <td><span class="status-badge {{ booking.status }}">{{ booking.status|title }}</span></td>
                     <td class="actions">
-                        <button class="btn-icon" onclick="viewBooking({{ booking.id }})">
+                        <a href="{% url 'admin_booking_detail' booking.id %}" class="btn-icon">
                             <i class="fas fa-eye" title="View Details"></i>
-                        </button>
-                        <button class="btn-icon" onclick="editBooking({{ booking.id }})">
+                        </a>
+                        <a href="{% url 'admin_booking_edit' booking.id %}" class="btn-icon">
                             <i class="fas fa-edit" title="Edit"></i>
-                        </button>
+                        </a>
                         {% if booking.status == 'pending' %}
-                        <button class="btn-icon confirm" onclick="confirmBooking({{ booking.id }})">
+                        <a href="{% url 'admin_booking_confirm' booking.id %}" class="btn-icon confirm">
                             <i class="fas fa-check" title="Confirm"></i>
-                        </button>
+                        </a>
                         {% endif %}
                     </td>
                 </tr>
@@ -62,4 +63,30 @@
 
     {% include 'admin/pagination.html' %}
 </div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const statusFilter = document.getElementById('status-filter');
+    const dateFilter = document.getElementById('date-filter');
+
+    function applyFilters() {
+        const status = statusFilter.value;
+        const date = dateFilter.value;
+        let url = new URL(window.location.href);
+        
+        if (status) url.searchParams.set('status', status);
+        else url.searchParams.delete('status');
+        
+        if (date) url.searchParams.set('date', date);
+        else url.searchParams.delete('date');
+        
+        window.location.href = url.toString();
+    }
+
+    statusFilter.addEventListener('change', applyFilters);
+    dateFilter.addEventListener('change', applyFilters);
+});
+</script>
+{% endblock %}
 {% endblock %}

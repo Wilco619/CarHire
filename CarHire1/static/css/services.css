@@ -24,7 +24,7 @@
   
   /* Hero Section */
   .services-hero {
-    background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.9)), 
+    background: linear-gradient(rgba(11, 10, 10, 0.8), rgba(11, 10, 10, 0.9)), 
                 url('../images/services-bg.jpg') no-repeat center center;
     background-size: cover;
     color: var(--white);
@@ -34,9 +34,22 @@
   }
   
   .services-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-bottom: 16px;
     font-weight: 700;
+    position: relative;
+    display: inline-block;
+  }
+
+  .services-hero h1::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: var(--accent-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .services-hero .lead {
@@ -69,12 +82,21 @@
     box-shadow: var(--shadow);
     transition: var(--transition);
     display: flex;
-    height: 100%;
+    flex-direction: row;
+    align-items: center; /* Center align the icon with content */
+    padding: 30px;
+    gap: 20px; /* Add consistent spacing between icon and content */
   }
   
   .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-card:hover .service-icon {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
   
   .service-icon {
@@ -83,9 +105,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
-    height: 50px;
-    font-size: 24px;
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 50%;
+    margin: 0 20px;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevent icon from shrinking */
   }
   
   .service-content {
@@ -164,6 +191,11 @@
     gap: 20px;
   }
   
+  .cta-buttons a {
+    font-size: .6rem;
+    text-decoration: none;
+  }
+  
   .btn {
     padding: 12px 25px;
     border: none;
@@ -215,11 +247,15 @@
     
     .service-card {
       flex-direction: column;
+      padding: 20px;
+      text-align: center;
     }
     
     .service-icon {
-      width: 100%;
-      height: 80px;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      margin: 0 0 15px 0; /* Adjust margin for column layout */
     }
     
     .cta-buttons {
@@ -237,5 +273,16 @@
     
     .services-grid {
       grid-template-columns: 1fr;
+    }
+
+    .service-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      margin: 0 0 10px 0;
+    }
+
+    .service-card {
+      padding: 15px;
     }
   }

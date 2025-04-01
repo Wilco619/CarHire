@@ -7,14 +7,13 @@
 <link rel="stylesheet" href="{% static 'css/admin.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 <link rel="stylesheet" href="{% static 'css/bookings.css' %}">
-<link rel="stylesheet" href="{% static 'css/booking_detail.css' %}">
-<link rel="stylesheet" href="{% static 'css/car_form.css' %}">
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 <link rel="stylesheet" href="{% static 'css/admin_user.css' %}">
 <link rel="stylesheet" href="{% static 'css/admin_category.css' %}">
 {% endblock %}
 
 {% block content %}
+<meta name="csrf-token" content="{{ csrf_token }}">
 <div class="admin-layout">
     <aside class="admin-sidebar">
         <nav class="admin-nav">

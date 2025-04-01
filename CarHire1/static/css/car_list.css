@@ -320,30 +320,140 @@
   /* Responsive Design */
   @media (max-width: 768px) {
     .hero-content h1 {
-      font-size: 2.5rem;
+        font-size: 2.5rem;
     }
     
     .filter-form {
-      flex-direction: column;
-      gap: 1rem;
+        flex-direction: column;
+        gap: 1rem;
     }
     
     .filter-group {
-      width: 100%;
+        width: 100%;
     }
     
     .car-grid {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(2, 1fr); /* Show 2 cars per row */
+        gap: 1rem; /* Reduce gap for smaller screens */
     }
-  }
-  
-  @media (max-width: 480px) {
+
+    /* Adjust card styles for smaller screens */
+    .car-card {
+        min-width: 0; /* Allow cards to shrink */
+        font-size: 14px;
+    }
+
+    .car-details h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .car-specs {
+        font-size: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .car-specs span i {
+        font-size: 0.8rem;
+        margin-right: 0.3rem;
+    }
+
+    .car-price {
+        margin: 0.5rem 0;
+    }
+
+    .price {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .price-period {
+        font-size: 0.75rem;
+    }
+
+    .car-actions {
+        gap: 0.5rem;
+    }
+
+    .view-details, .book-now {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .availability, .not-available {
+        font-size: 0.7rem;
+    }
+
+    .car-category-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
     .hero-content h1 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
     
     .car-specs {
-      flex-direction: column;
-      gap: 0.5rem;
+        flex-direction: column;
+        gap: 0.5rem;
     }
-  }
+
+    .car-image {
+        height: 180px; /* Smaller image height */
+    }
+
+    /* Keep 2 cars per row even on very small screens */
+    .car-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    /* Adjust spacing and fonts for very small screens */
+    .car-details {
+        padding: 1rem;
+    }
+
+    .view-details, .book-now {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .availability, .not-available {
+        font-size: 0.8rem;
+    }
+
+    .car-card {
+        font-size: 12px;
+    }
+
+    .car-details h3 {
+        font-size: 0.9rem;
+    }
+
+    .car-specs {
+        font-size: 0.7rem;
+    }
+
+    .car-specs span i {
+        font-size: 0.7rem;
+    }
+
+    .price {
+        font-size: 0.9rem;
+    }
+
+    .price-period {
+        font-size: 0.65rem;
+    }
+
+    .view-details, .book-now {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .availability, .not-available {
+        font-size: 0.65rem;
+    }
+}

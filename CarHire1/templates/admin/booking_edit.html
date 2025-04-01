@@ -1,0 +1,37 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block admin_content %}
+<div class="booking-edit">
+    <h2>Edit Booking #{{ booking.id }}</h2>
+    
+    <form method="post" class="booking-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Start Date:</label>
+            <input type="date" name="start_date" value="{{ booking.start_date|date:'Y-m-d' }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>End Date:</label>
+            <input type="date" name="end_date" value="{{ booking.end_date|date:'Y-m-d' }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Status:</label>
+            <select name="status">
+                {% for status, label in booking.STATUS_CHOICES %}
+                    <option value="{{ status }}" {% if booking.status == status %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'admin_booking_detail' booking.id %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
